@@ -28,8 +28,26 @@ head(mtcars2[,1:3])
 
 mtcars%>%rename(disp_change = disp) # check the pipeline by solomen313
 
-dddddd
+library(dplyr)
+mt_over20 <- filter(mtcars,mpg > 20)
+head(mt_over20)
 
+mt = mtcars
+mt$Car <- rownames(mt)
 
+mt$Car
 
+mt_over20 <- filter(mtcars,mpg > 20)
+
+mt%>%filter(mpg>20,cyl==6) #Same as mt_over20_6cy1.The pipeline command %>% is good
+                           #multipul steps of the data mangement.Since one do not need
+                           #creat so many new data set ,such as mt_over20_6cy1,that confuse
+                          #oneself afer few days.
+
+mt_over20_6cyl <- filter(mt,
+                         mpg > 20,
+                         cyl==6) #This one is clear enough!
+mt_over20_6cyl
+
+w
 
