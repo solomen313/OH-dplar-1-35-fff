@@ -1,5 +1,5 @@
-#filter()(and slice())
-#arrange()
+#filter()(and slice())- subsetting rows
+#arrange()- sorting the data.frame by colums
 #select()(and rename())
 #distinct()
 #mutate()(and transmute())
@@ -49,5 +49,12 @@ mt_over20_6cyl <- filter(mt,
                          cyl==6) #This one is clear enough!
 mt_over20_6cyl
 
-w
+mt_over20_or_6cyl <- filter(mt,
+                         mpg > 20|
+                         cyl==6)
 
+mt_over20_or_6cyl
+head(mt_over20_or_6cyl)
+
+mt_mpg_sort = arrange(mt,cyl,desc(mpg))
+head(mt_mpg_sort)
