@@ -1,6 +1,6 @@
 #filter()(and slice())- subsetting rows
 #arrange()- sorting the data.frame by colums
-#select()(and rename())
+#select()(and rename()-renami)
 #distinct()
 #mutate()(and transmute())
 #summarise()
@@ -61,3 +61,25 @@ head(mt_mpg_sort)
 ##This time may be work well!
 
 tail(mt_mpg_sort)
+
+
+carbdf = select(mt,carb,mpg)
+carbdf = mt[,c("carb","mpg")] # base command as select~
+head(carbdf)
+
+
+mt["Mazda RX4",]# requires rownames
+mt[mt$Car == "Mazda RX4"]
+filter(mt,Car == "Mazda RX4")
+
+head(mt)
+?mutate
+
+mt = mutate(mt,mpg2 = mpg^2)
+head(mt)
+
+###################################
+mt1 = mutate(mt,am_V = 1-am)      #
+head(mt1%>%select(am,am_V))                         #
+mt1%>%select(am,am_V)             #
+###################################  Item reversion !
