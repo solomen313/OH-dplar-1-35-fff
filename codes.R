@@ -75,11 +75,89 @@ filter(mt,Car == "Mazda RX4")
 head(mt)
 ?mutate
 
-mt = mutate(mt,mpg2 = mpg^2)
+mt = mutate(mt,mpg2 = mpg^2)  #using dplyr
+mt$mpg2 = mt$mpg^2 #standard R syntax 
+  #using dplyr
+
+mt$mpg2 = mt$mpg^2
+mt$cyl2 = mt$cyl^2
+mt$disp2 = mt$disp^2 # Standard R Syntax
+
+mt = mutate(mt,
+            mpg2 = mpg^2,
+            cyl2 = cyl^2,
+            disp2 = disp^2)  #using dplyr
+
+mt%>%mutate(mpg2 = mpg^2,
+            cyl2 = cyl^2,
+            disp2 = disp^2) #using pipe!
+
+mt%>%mutate(mpg2 = mpg^2,
+            cyl2 = cyl^2,
+            disp2 = disp^2,
+            x = rep(1:3,
+                    length = nrow(mt))) #using pipe!
+
+mt%>%
+  mutate(mpg2 = mpg^2,
+            cyl2 = cyl^2,
+            disp2 = disp^2,
+            over20_mpg = mpg > 20)%>% #creat a condition of mpg
+            arrange(over20_mpg)%>% # arrange the over20_mpg
+            filter(over20_mpg == F) # 
+
+mt%>%mutate(mpg2 = mpg^2,
+            cyl2 = cyl^2,
+            disp2 = disp^2)%>%
+   filter(mpg < 20)# choose the cars whose mpg < 20 
+
 head(mt)
+
+
 
 ###################################
 mt1 = mutate(mt,am_V = 1-am)      #
 head(mt1%>%select(am,am_V))                         #
 mt1%>%select(am,am_V)             #
 ###################################  Item reversion !
+
+
+
+
+mt5 =mt %>%	filter(mpg < 20) 
+mt5%>%
+  mutate(x = rep(0,
+                 length = nrow(mt5)))
+
+mt$mpg2 = NULL # remove mpg2 column
+head(mt)
+
+
+mt%>%
+  mutate(mpg2 = mpg^2,
+         cyl2 = cyl^2,
+         disp2 = disp^2,
+         over20_mpg = mpg > 20,
+         mpg2_over140 = mpg2 > 140)
+
+
+mt%>%
+  transmute(Car,
+            mpg2 = mpg^2,
+         cyl2 = cyl^2,
+         disp2 = disp^2,
+         over20_mpg = mpg > 20,
+         mpg2_over140 = mpg2 > 140)
+
+ll <- c(a1:a20)
+ll
+
+summarise(mt,
+          mean_cyl = mean(cyl),
+          max_cyl = max(cyl),
+          q25_cyl = quantile(cyl,probs = 0.25)
+)
+library(plyr)
+summarise(group_by(mt,cyl),
+          mean_mpg = mean(mpg)
+)
