@@ -161,3 +161,12 @@ library(plyr)
 summarise(group_by(mt,cyl),
           mean_mpg = mean(mpg)
 )
+
+?select
+?filter
+
+x1 <- 1:5;x2 <- 2:6
+
+(x1-x2)^2%>%
+  sum()%>%
+  sqrt()
